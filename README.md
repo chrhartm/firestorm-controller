@@ -21,6 +21,7 @@ On your raspberry, perform these steps to pair all controllers you want to use. 
 ### Adapt the script for dynamic variables
 * In all pixelblaze scripts, export the variables you want with `export var <YOUR_VAR>`
 * In the `main.py` code, add the variable names and the min/max range at the start of the code
+* In the `main.py` code, add all IDs of all your pixelblazes. You can get them for example with `http://0.0.0.0/discover`
 
 ### Make sure the script is loaded on startup so you don't need a screen
 TODO
