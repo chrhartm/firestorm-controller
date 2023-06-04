@@ -18,5 +18,9 @@ On your raspberry, perform these steps to pair all controllers you want to use. 
 * paste the addresses in the `main.py` file at `bluetoothprocess.stdin.write('connect YO:UR:AD:DR:ES:S\n')`
 * repeat if you have more controllers and add more lines in the code
 
+### Adapt the script for dynamic variables
+* In all pixelblaze scripts, export the variables you want with `export var <YOUR_VAR>`
+* In the `main.py` code, add the variable names and the min/max range at the start of the code
+
 ### Make sure the script is loaded on startup so you don't need a screen
 TODO
