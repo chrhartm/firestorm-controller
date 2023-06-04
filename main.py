@@ -162,7 +162,7 @@ def main_loop():
     global joysticks, joystick_lastactive, JOYSTICK_TIMEOUT
     
     while True:
-        time.sleep(0.02)
+        time.sleep(0.5) # firestorm crashes on pi if updated too often
 
         read_controller()
         process()
