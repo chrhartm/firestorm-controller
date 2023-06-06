@@ -1,3 +1,6 @@
+import os
+# Needed for pygame when running from cron
+os.environ['SDL_VIDEODRIVER'] = 'dummy'
 import pygame
 import time
 import requests
@@ -27,20 +30,25 @@ program = 0
 range_states = [0, 0, 0, 0, 0]
 
 def init_bluetooth():
-    global bluetoothprocess
-    bluetoothprocess = subprocess.Popen(['bluetoothctl'],
-                                        shell=False,
-                                        stdin=subprocess.PIPE,
-                                        stdout=subprocess.PIPE)
-    time.sleep(0.02)
-    bluetoothprocess.stdin.write('agent on\n'.encode())
-    time.sleep(0.02)
-    bluetoothprocess.stdin.write('connect DB:F6:AB:36:77:85\n'.encode())
-    time.sleep(1)
-    bluetoothprocess.stdin.write('connect FF:6C:F2:BA:E9:AA\n'.encode())
-    time.sleep(1)
-    bluetoothprocess.stdin.write('exit\n'.encode())
-    # print(bluetoothprocess.stdout.read().decode())
+    global device1, device2
+    try:
+        bprocess = subprocess.Popen(["bluetoothctl"], stdin=subprocess.PIPE)
+        bprocess.stdin.write(f"connect DB:F6:AB:36:77:85".encode())
+        bprocess.stdin.flush()
+        bprocess.stdin.close()
+        bprocess.wait()
+        time.sleep(2)
+    except:
+        print("couldn't find device1")
+    try:
+        bprocess = subprocess.Popen(["bluetoothctl"], stdin=subprocess.PIPE)
+        bprocess.stdin.write(f"connect FF:6C:F2:BA:E9:AA".encode())
+        bprocess.stdin.flush()
+        bprocess.stdin.close()
+        bprocess.wait()
+        time.sleep(2)
+    except:
+        print("couldn't find device2")
 
 def init_joystick():
     global joysticks, joystick_lastactive
@@ -174,7 +182,7 @@ def main_loop():
             break
 
 if (__name__ == '__main__'):
-    # init_bluetooth()
+    init_bluetooth()
     
     while True:
         try:
@@ -188,5 +196,3 @@ if (__name__ == '__main__'):
         except KeyboardInterrupt:
             print("*** Ctrl+C pressed, exiting")
             break
-    
-    bluetoothprocess.terminate()

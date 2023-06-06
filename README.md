@@ -15,7 +15,7 @@ On your raspberry, perform these steps to pair all controllers you want to use. 
 * `scan on` until you find the controller (not a bluetooth controller, it'll be a Device)
 * copy the address of your controller (`XX:XX:XX:...`)
 * `pair XX:XX:XX:...` 
-* paste the addresses in the `main.py` file at `bluetoothprocess.stdin.write('connect YO:UR:AD:DR:ES:S\n')`
+* paste the addresses in the `main.py` file at `bprocess.stdin.write(f"connect DB:F6:AB:36:77:85".encode())`
 * repeat if you have more controllers and add more lines in the code
 
 ### Adapt the script for dynamic variables
@@ -24,4 +24,7 @@ On your raspberry, perform these steps to pair all controllers you want to use. 
 * In the `main.py` code, add all IDs of all your pixelblazes. You can get them for example with `http://0.0.0.0/discover`
 
 ### Make sure the script is loaded on startup so you don't need a screen
-TODO
+```
+sudo crontab -e
+@reboot sleep 30 && python <PATH_TO_FILE>/main.py >> <PATH_TO_FILE>/cron.log 2>&1
+```
